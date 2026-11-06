@@ -1,4 +1,4 @@
---Projeto SuperScore - Desafio de Inovação Super Connect
+#Projeto SuperScore - Desafio de Inovação Super Connect
 
 O presente documento constitui o Readme descritivo do projeto SuperScore, uma solução tecnológica estruturada durante o Desafio de Inovação Aberta da Super Connect. Esta maratona de inovação ocorreu durante o mês de julho de 2025, sendo realizada de forma presencial na sede da empresa, localizada no município de Olho d'Água das Flores, Alagoas. O projeto foi concebido com o objetivo de entregar uma aplicação funcional, sistêmica e estratégica para o setor de telecomunicações.
 
