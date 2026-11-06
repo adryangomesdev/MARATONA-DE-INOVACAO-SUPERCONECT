@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperConnect - Minha Conta</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #00D644 0%, #00B837 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .logo .super {
+            color: #333;
+        }
+
+        .logo .connect {
+            color: #00D644;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00D644;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .dashboard {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .welcome h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome .highlight {
+            color: #00D644;
+        }
+
+        .status-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .status-card {
+            background: linear-gradient(135deg, #00D644 0%, #00B837 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .status-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .status-card .value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .status-card .label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .rewards-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .level-highlight {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            border: 3px solid #FF6B35;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-highlight::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .level-highlight h2 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .trophy-display {
+            font-size: 4rem;
+            margin: 1rem 0;
+            position: relative;
+            z-index: 2;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .points-display {
+            font-size: 1.5rem;
+            color: white;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .cancel-btn {
+            background: linear-gradient(135deg, #FF4757, #FF3838);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cancel-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 71, 87, 0.4);
+            background: linear-gradient(135deg, #FF3838, #FF2828);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            margin: 15% auto;
+            padding: 3rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: modalSlide 0.4s ease-out;
+        }
+
+        @keyframes modalSlide {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-content h3 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content p {
+            color: #333;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .close-modal {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background: #555;
+            transform: translateY(-2px);
+        }
+
+        .stay-btn {
+            background: linear-gradient(135deg, #00D644, #00B837);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .stay-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 214, 68, 0.3);
+        }
+
+        .cancel-anyway-btn {
+            background: linear-gradient(135deg, #6c757d, #5a5a5a);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: normal;
+            transition: all 0.3s ease;
+        }
+
+        .cancel-anyway-btn:hover {
+            background: linear-gradient(135deg, #5a5a5a, #495057);
+            transform: translateY(-1px);
+        }
+
+        .rewards-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .rewards-modal-content {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: modalSlide 0.4s ease-out;
+        }
+
+        .rewards-modal h3 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #00D644, #00B837);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .reward-item {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reward-item:hover {
+            border-color: #00D644;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 214, 68, 0.1);
+        }
+
+        .reward-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #00D644, #00B837);
+            transition: left 0.3s ease;
+        }
+
+        .reward-item:hover::before {
+            left: 0;
+        }
+
+        .reward-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .reward-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .reward-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .reward-cost {
+            background: linear-gradient(135deg, #00D644, #00B837);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .reward-cost.special {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #333;
+        }
+
+        .close-rewards {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-rewards:hover {
+            color: #333;
+        }
+
+        .refer-friends-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .refer-friends-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 4s infinite;
+        }
+
+        .refer-friends-banner h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .refer-friends-banner p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .refer-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .refer-btn:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .rewards-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .rewards-card h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .tier-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .tier-badge.bronze {
+            background: linear-gradient(135deg, #CD7F32, #A0522D);
+        }
+
+        .tier-badge.silver {
+            background: linear-gradient(135deg, #C0C0C0, #A9A9A9);
+        }
+
+        .tier-badge.gold {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+        }
+
+        .progress-bar {
+            background: #f0f0f0;
+            height: 10px;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #00D644, #00B837);
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+
+        .benefits-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .benefits-list li {
+            padding: 0.5rem 0;
+            color: #666;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .benefits-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00D644;
+            font-weight: bold;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #00D644, #00B837);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 214, 68, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #00D644;
+            color: #00D644;
+        }
+
+        .btn-outline:hover {
+            background: #00D644;
+            color: white;
+        }
+
+        .payment-reminder {
+            background: linear-gradient(135deg, #FFF3CD, #FCF4A3);
+            border: 1px solid #FFC107;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .payment-reminder h4 {
+            color: #856404;
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-reminder p {
+            color: #856404;
+            margin-bottom: 1rem;
+        }
+
+        .timeline {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline h3 {
+            color: #333;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 40px;
+            bottom: -15px;
+            width: 2px;
+            background: #e0e0e0;
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-icon {
+            width: 30px;
+            height: 30px;
+            background: #00D644;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            margin-right: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-content h4 {
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-content p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+            @media (max-width: 768px) {
+                .rewards-section {
+                    grid-template-columns: 1fr;
+                }
+                
+                .nav-links {
+                    display: none;
+                }
+                
+                .action-buttons {
+                    flex-direction: column;
+                }
+
+                .level-highlight {
+                    padding: 2rem 1.5rem;
+                }
+
+                .level-highlight h2 {
+                    font-size: 1.5rem;
+                }
+
+                .trophy-display {
+                    font-size: 3rem;
+                }
+
+                .modal-content {
+                    margin: 20% auto;
+                    padding: 2rem;
+                }
+
+                .modal-buttons {
+                    flex-direction: column;
+                    gap: 1rem;
+                }
+
+                .rewards-modal-content {
+                    margin: 10% auto;
+                    padding: 1.5rem;
+                    max-height: 90vh;
+                }
+
+                .rewards-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .refer-friends-banner {
+                    padding: 1.5rem;
+                }
+
+                .refer-friends-banner h3 {
+                    font-size: 1.3rem;
+                }
+
+                .refer-friends-banner p {
+                    font-size: 1rem;
+                }
+            }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <span class="super">SUPER</span><span class="connect">CONNECT</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#conta">Minha Conta</a></li>
+                <li><a href="#suporte">Suporte</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="dashboard">
+            <div class="welcome">
+                <h1>Bem-vindo, <span class="highlight">João Silva</span>!</h1>
+                <p>Gerencie sua conta e aproveite todos os benefícios</p>
+            </div>
+
+            <div class="payment-reminder">
+                <h4>💰 Cashback Disponível!</h4>
+                <p>Você tem R$ 15,50 em cashback acumulado. Pague sua próxima fatura em dia e ganhe mais 3%!</p>
+                <button class="btn">Resgatar Cashback</button>
+            </div>
+
+            <div class="refer-friends-banner">
+                <h3>👥 Indique Amigos e Ganhe!</h3>
+                <p>Para cada amigo que contratar nossos serviços, você ganha <strong>5GB extras</strong> no seu plano móvel!</p>
+                <button class="refer-btn" onclick="shareReferral()">Compartilhar Link 🔗</button>
+            </div>
+
+            <div class="level-highlight">
+                <h2>🏆 SEU NÍVEL ATUAL</h2>
+                <div class="trophy-display">🥇</div>
+                <div class="tier-badge gold">OURO+</div>
+                <div class="points-display">2.450 pontos</div>
+                <p style="color: white; margin-top: 1rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
+                    <strong>Parabéns!</strong> Você alcançou o nível máximo!<br>
+                    15 meses consecutivos pagando em dia
+                </p>
+            </div>
+
+            <div class="status-cards">
+                <div class="status-card">
+                    <h3>Sua Fatura</h3>
+                    <div class="value">R$ 70,00</div>
+                    <div class="label">Vence em 5 dias</div>
+                </div>
+                <div class="status-card">
+                    <h3>Cashback Acumulado</h3>
+                    <div class="value">R$ 15,50</div>
+                    <div class="label">Disponível para uso</div>
+                </div>
+                <div class="status-card">
+                    <h3>Pontos SuperConnect</h3>
+                    <div class="value">2.450</div>
+                    <div class="label">pts disponíveis</div>
+                </div>
+            </div>
+
+            <div class="rewards-section">
+                <div class="rewards-card">
+                    <h3>🏆 Seu Nível Atual</h3>
+                    <div class="tier-badge gold">OURO+</div>
+                    <p><strong>Parabéns!</strong> Você está no nível máximo do nosso programa de fidelidade.</p>
+                    
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%"></div>
+                    </div>
+                    <p><small>15 meses consecutivos pagando em dia</small></p>
+
+                    <ul class="benefits-list">
+                        <li>15% de desconto na próxima fatura</li>
+                        <li>Upgrade gratuito de velocidade</li>
+                        <li>Atendimento VIP exclusivo</li>
+                        <li>Acesso a promoções exclusivas</li>
+                    </ul>
+                </div>
+
+                <div class="rewards-card">
+                    <h3>🎁 Recompensas Disponíveis</h3>
+                    <div style="margin: 1rem 0;">
+                        <strong>Próximo nível em:</strong> Você já chegou ao máximo!
+                    </div>
+                    
+                    <ul class="benefits-list">
+                        <li>5GB extras no móvel (500 pts)</li>
+                        <li>Canais premium grátis (800 pts)</li>
+                        <li>Netflix gratuito por 1 mês (1.200 pts)</li>
+                        <li>Desconto 20% na próxima fatura (1.500 pts)</li>
+                    </ul>
+
+                    <button class="btn" style="width: 100%; margin-top: 1rem;">Resgatar Recompensas</button>
+                </div>
+            </div>
+
+            <div class="timeline">
+                <h3>📈 Sua Jornada SuperConnect</h3>
+                <div class="timeline-item">
+                    <div class="timeline-icon">✓</div>
+                    <div class="timeline-content">
+                        <h4>Pagamento realizado</h4>
+                        <p>Fatura de dezembro paga em dia - Cashback de R$ 2,10 creditado</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">🏆</div>
+                    <div class="timeline-content">
+                        <h4>Nível Ouro+ alcançado</h4>
+                        <p>15 meses consecutivos - Desbloqueados todos os benefícios premium</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">🎁</div>
+                    <div class="timeline-content">
+                        <h4>Recompensa resgatada</h4>
+                        <p>5GB extras adicionados ao seu plano móvel</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">💰</div>
+                    <div class="timeline-content">
+                        <h4>Cashback promocional</h4>
+                        <p>Pagamento antecipado de 3 faturas - Bônus de 10% aplicado</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <a href="#pagar" class="btn">Pagar Fatura</a>
+                <button class="btn btn-outline" onclick="openRewardsModal()">Ver Todas as Recompensas</button>
+                <a href="#adiantar" class="btn btn-outline">Pagar Adiantado</a>
+                <button class="cancel-btn" onclick="openCancelModal()">Cancelar Serviço</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Cancelamento -->
+    <div id="cancelModal" class="modal">
+        <div class="modal-content">
+            <h3>🎉 Espere! Temos uma oferta especial!</h3>
+            <p>
+                <strong>Não cancele o serviço!</strong><br>
+                Se você ficar conosco, receberá o <strong>DOBRO DE PONTOS</strong> nas suas próximas faturas!<br><br>
+                Isso significa <strong>4.900 pontos extras</strong> só por continuar sendo nosso cliente VIP! 🌟
+            </p>
+            <div class="modal-buttons">
+                <button class="stay-btn" onclick="acceptOffer()">Aceitar Oferta! 🎁</button>
+                <button class="cancel-anyway-btn" onclick="confirmCancel()">Quero cancelar mesmo assim 😢</button>
+                <button class="close-modal" onclick="closeCancelModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Recompensas -->
+    <div id="rewardsModal" class="rewards-modal">
+        <div class="rewards-modal-content">
+            <button class="close-rewards" onclick="closeRewardsModal()">&times;</button>
+            <h3>🎁 Todas as Recompensas Disponíveis</h3>
+            
+            <div class="rewards-grid">
+                <div class="reward-item">
+                    <div class="reward-icon">📱</div>
+                    <div class="reward-title">5GB Extras no Móvel</div>
+                    <div class="reward-description">Adicione 5GB extras ao seu plano móvel válido por 30 dias</div>
+                    <div class="reward-cost">500 pts</div>
+                </div>
+                
+                <div class="reward-item">
+                    <div class="reward-icon">📺</div>
+                    <div class="reward-title">Canais Premium Grátis</div>
+                    <div class="reward-description">Acesso aos canais premium por 1 mês (HBO, Telecine, Globoplay)</div>
+                    <div class="reward-cost">800 pts</div>
+                </div>
+                
+                <div class="reward-item">
+                    <div class="reward-icon">🎬</div>
+                    <div class="reward-title">Netflix Gratuito</div>
+                    <div class="reward-description">1 mês de Netflix gratuito em qualquer plano</div>
+                    <div class="reward-cost">1.200 pts</div>
+                </div>
+                
+                <div class="reward-item">
+                    <div class="reward-icon">💰</div>
+                    <div class="reward-title">Desconto 20% na Fatura</div>
+                    <div class="reward-description">Desconto de 20% aplicado na próxima fatura</div>
+                    <div class="reward-cost">1.500 pts</div>
+                </div>
+                
+                <div class="reward-item">
+                    <div class="reward-icon">⚡</div>
+                    <div class="reward-title">Upgrade de Velocidade</div>
+                    <div class="reward-description">Upgrade gratuito de velocidade por 2 meses</div>
+                    <div class="reward-cost">2.000 pts</div>
+                </div>
+                
+                <div class="reward-item">
+                    <div class="reward-icon">👥</div>
+                    <div class="reward-title">Indique Amigos - 5GB</div>
+                    <div class="reward-description">Ganhe 5GB extras para cada amigo que contratar nossos serviços</div>
+                    <div class="reward-cost special">GRÁTIS!</div>
+                </div>
+                
+                <div class="reward-item">
+                    <div class="reward-icon">🎮</div>
+                    <div class="reward-title">Gaming Pack</div>
+                    <div class="reward-description">Latência reduzida + 10GB extras para jogos online</div>
+                    <div class="reward-cost">1.800 pts</div>
+                </div>
+                
+                <div class="reward-item">
+                    <div class="reward-icon">☕</div>
+                    <div class="reward-title">Vale Café</div>
+                    <div class="reward-description">R$ 50 em vale-presente para cafeterias parceiras</div>
+                    <div class="reward-cost">1.000 pts</div>
+                </div>
+                
+                <div class="reward-item">
+                    <div class="reward-icon">🚗</div>
+                    <div class="reward-title">Desconto Uber</div>
+                    <div class="reward-description">R$ 30 em créditos no Uber válido por 60 dias</div>
+                    <div class="reward-cost">600 pts</div>
+                </div>
+                
+                <div class="reward-item">
+                    <div class="reward-icon">🎵</div>
+                    <div class="reward-title">Spotify Premium</div>
+                    <div class="reward-description">3 meses de Spotify Premium gratuito</div>
+                    <div class="reward-cost">1.400 pts</div>
+                </div>
+                
+                <div class="reward-item">
+                    <div class="reward-icon">🏆</div>
+                    <div class="reward-title">Status VIP por 1 Ano</div>
+                    <div class="reward-description">Atendimento prioritário e benefícios exclusivos</div>
+                    <div class="reward-cost">3.000 pts</div>
+                </div>
+                
+                <div class="reward-item">
+                    <div class="reward-icon">💎</div>
+                    <div class="reward-title">Pacote Premium Completo</div>
+                    <div class="reward-description">Todos os benefícios premium + cashback dobrado por 3 meses</div>
+                    <div class="reward-cost">5.000 pts</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulação de interatividade
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animação dos cards ao carregar
+            const cards = document.querySelectorAll('.status-card, .rewards-card, .level-highlight');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+
+            // Efeito hover nos botões
+            const buttons = document.querySelectorAll('.btn, .cancel-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px) scale(1.02)';
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Simulação de atualização de dados
+            setInterval(() => {
+                const cashbackElement = document.querySelector('.status-card:nth-child(2) .value');
+                const currentValue = parseFloat(cashbackElement.textContent.replace('R$ ', '').replace(',', '.'));
+                const newValue = (currentValue + 0.01).toFixed(2).replace('.', ',');
+                cashbackElement.textContent = `R$ ${newValue}`;
+
+                // Atualiza pontos no destaque também
+                const pointsElement = document.querySelector('.points-display');
+                const currentPoints = parseInt(pointsElement.textContent.replace(' pontos', '').replace('.', ''));
+                const newPoints = currentPoints + 1;
+                pointsElement.textContent = `${newPoints.toLocaleString('pt-BR')} pontos`;
+            }, 10000);
+        });
+
+        // Funções do modal de cancelamento
+        function openCancelModal() {
+            document.getElementById('cancelModal').style.display = 'block';
+        }
+
+        function closeCancelModal() {
+            document.getElementById('cancelModal').style.display = 'none';
+        }
+
+        function acceptOffer() {
+            alert('🎉 Parabéns! Você aceitou a oferta especial! O dobro de pontos será aplicado nas suas próximas faturas.');
+            closeCancelModal();
+            
+            // Anima o card de pontos para mostrar o benefício
+            const levelCard = document.querySelector('.level-highlight');
+            levelCard.style.transform = 'scale(1.05)';
+            levelCard.style.boxShadow = '0 20px 60px rgba(255, 107, 53, 0.5)';
+            
+            setTimeout(() => {
+                levelCard.style.transform = 'scale(1)';
+                levelCard.style.boxShadow = '0 15px 40px rgba(255, 107, 53, 0.3)';
+            }, 1000);
+        }
+
+        function confirmCancel() {
+            alert('😢 Lamentamos que você queira nos deixar! Entraremos em contato em breve para processar o cancelamento.');
+            closeCancelModal();
+        }
+
+        // Funções do modal de recompensas
+        function openRewardsModal() {
+            document.getElementById('rewardsModal').style.display = 'block';
+        }
+
+        function closeRewardsModal() {
+            document.getElementById('rewardsModal').style.display = 'none';
+        }
+
+        // Função de indicação de amigos
+        function shareReferral() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'SuperConnect - Indique Amigos!',
+                    text: 'Contrate a SuperConnect e nós dois ganhamos benefícios! Eu ganho 5GB extras e você ganha desconto!',
+                    url: 'https://superconnect.com/indicacao/joao-silva'
+                });
+            } else {
+                // Fallback para dispositivos que não suportam Web Share API
+                navigator.clipboard.writeText('https://superconnect.com/indicacao/joao-silva').then(() => {
+                    alert('🔗 Link de indicação copiado! Compartilhe com seus amigos e ganhe 5GB extras para cada um que contratar!');
+                }).catch(() => {
+                    alert('Link de indicação: https://superconnect.com/indicacao/joao-silva\n\nCompartilhe este link com seus amigos!');
+                });
+            }
+        }
+
+        // Fecha modais ao clicar fora deles
+        window.onclick = function(event) {
+            const cancelModal = document.getElementById('cancelModal');
+            const rewardsModal = document.getElementById('rewardsModal');
+            
+            if (event.target === cancelModal) {
+                closeCancelModal();
+            }
+            if (event.target === rewardsModal) {
+                closeRewardsModal();
+            }
+        }
+    </script>
+</body>
+</html>
